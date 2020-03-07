@@ -131,6 +131,7 @@ function Body() {
     },
     __self: this
   }), __jsx(_cardList__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    title: "",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
@@ -162,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/card.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-function Card() {
+function Card(props) {
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
@@ -175,7 +176,7 @@ function Card() {
       lineNumber: 4
     },
     __self: this
-  }, "Card"));
+  }, props.content));
 }
 
 /***/ }),
@@ -201,35 +202,49 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-function CardList(props) {
+
+function CardList(props, state) {
+  const {
+    0: cards,
+    1: setCards
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
+
+  const addCard = () => {
+    setCards(cards.concat(["abc"]));
+  };
+
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6
+      lineNumber: 11
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 12
     },
     __self: this
-  }, props.title), __jsx(_card__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: this
+  }, props.title), cards.map(card => {
+    return __jsx(_card__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      content: card,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 15
+      },
+      __self: this
+    });
   }), __jsx(_elements_buttonAdd__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    addCard: addCard,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 18
     },
     __self: this
   }), __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 19
     },
     __self: this
   }));
@@ -252,7 +267,7 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/elements/buttonAdd.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-function ButtonAdd() {
+function ButtonAdd(props) {
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
@@ -260,6 +275,7 @@ function ButtonAdd() {
     },
     __self: this
   }, __jsx("button", {
+    onClick: props.addCard,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 4

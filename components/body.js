@@ -4,7 +4,7 @@ export default function Body() {
     <div>
       <p>Body</p>
       <CardList title="Went Well"/>
-      <CardList/>
+      <CardList title=""/>
       <CardList/>
     </div>
   )

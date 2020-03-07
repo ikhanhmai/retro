@@ -1,7 +1,7 @@
-export default function Card() {
+export default function Card(props) {
   return (
     <div>
-      <p>Card</p>
+      <p>{props.content}</p>
     </div>
   )
 }

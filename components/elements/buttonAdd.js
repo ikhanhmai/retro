@@ -1,7 +1,7 @@
-export default function ButtonAdd() {
+export default function ButtonAdd(props) {
   return (
     <div>
-      <button>Add</button>
+      <button onClick={props.addCard}>Add</button>
     </div>
   )
 }

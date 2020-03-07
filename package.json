@@ -1,9 +1,8 @@
 {
   "name": "retro",
   "version": "1.0.0",
-  "description": "retro for Agile team",
   "main": "index.js",
   "repository": "git@github-ikhanhmai:ikhanhmai/retro.git",
-  "author": "ikhanhmai@gmail.com",
+  "author": "ikhanhmai <ikhanhmai@gmail.com>",
   "license": "MIT"
 }

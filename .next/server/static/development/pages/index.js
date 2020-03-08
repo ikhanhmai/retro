@@ -162,32 +162,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _elements_buttonDelete__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements/buttonDelete */ "./components/elements/buttonDelete.js");
+/* harmony import */ var _elements_buttonLike__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elements/buttonLike */ "./components/elements/buttonLike.js");
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/card.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 function Card(props) {
   const onDeleteHandler = () => {
     props.onDelete(props.cardIndex);
   };
 
+  const onLikeHandler = () => {
+    props.onLike(props.cardIndex);
+  };
+
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 7
+      lineNumber: 12
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 8
+      lineNumber: 13
     },
     __self: this
   }, props.content), __jsx(_elements_buttonDelete__WEBPACK_IMPORTED_MODULE_1__["default"], {
     onDelete: onDeleteHandler,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9
+      lineNumber: 14
+    },
+    __self: this
+  }), __jsx(_elements_buttonLike__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    onLike: onLikeHandler,
+    likeCount: props.likeCount,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 15
     },
     __self: this
   }));
@@ -210,6 +224,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./card */ "./components/card.js");
 /* harmony import */ var _elements_buttonAdd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elements/buttonAdd */ "./components/elements/buttonAdd.js");
 /* harmony import */ var _elements_textBox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./elements/textBox */ "./components/elements/textBox.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/cardList.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -219,6 +235,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -241,7 +258,10 @@ function CardList(props) {
 
   const addCard = text => {
     setState({
-      cards: state.cards.concat([text])
+      cards: state.cards.concat([{
+        text: text,
+        likeCount: 0
+      }])
     });
     setState({
       showTextBox: false
@@ -254,27 +274,40 @@ function CardList(props) {
     });
   };
 
+  const onLikeHandler = key => {
+    const newCards = lodash__WEBPACK_IMPORTED_MODULE_4___default.a.map(state.cards, (card, index) => {
+      if (index === key) card.likeCount++;
+      return card;
+    });
+
+    setState({
+      cards: newCards
+    });
+  };
+
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21
+      lineNumber: 29
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22
+      lineNumber: 30
     },
     __self: this
   }, props.title), state.cards.map((card, index) => {
     return __jsx(_card__WEBPACK_IMPORTED_MODULE_1__["default"], {
       onDelete: onDeleteHandler,
+      onLike: onLikeHandler,
       cardIndex: index,
       key: index,
-      content: card,
+      content: card.text,
+      likeCount: card.likeCount,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 25
+        lineNumber: 33
       },
       __self: this
     });
@@ -282,14 +315,14 @@ function CardList(props) {
     onClick: buttonAddHandler,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 28
+      lineNumber: 36
     },
     __self: this
   }), state.showTextBox && __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
     submitText: addCard,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 31
+      lineNumber: 39
     },
     __self: this
   }));
@@ -365,6 +398,50 @@ function ButtonDelete(props) {
     },
     __self: this
   }, "Delete"));
+}
+
+/***/ }),
+
+/***/ "./components/elements/buttonLike.js":
+/*!*******************************************!*\
+  !*** ./components/elements/buttonLike.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ButtonLike; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/elements/buttonLike.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+function ButtonLike(props) {
+  const onClickHandler = () => {
+    props.onLike();
+  };
+
+  return __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: this
+  }, __jsx("button", {
+    onClick: onClickHandler,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, "Like"), __jsx("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, props.likeCount));
 }
 
 /***/ }),
@@ -558,6 +635,17 @@ function Index() {
 
 module.exports = __webpack_require__(/*! /Users/khanhmai/side_projects/retro/pages/index.js */"./pages/index.js");
 
+
+/***/ }),
+
+/***/ "lodash":
+/*!*************************!*\
+  !*** external "lodash" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
 
 /***/ }),
 

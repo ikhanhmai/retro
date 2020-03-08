@@ -161,23 +161,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Card; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elements_buttonDelete__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements/buttonDelete */ "./components/elements/buttonDelete.js");
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/card.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 function Card(props) {
+  const onDeleteHandler = () => {
+    props.onDelete(props.cardIndex);
+  };
+
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 3
+      lineNumber: 7
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4
+      lineNumber: 8
     },
     __self: this
-  }, props.content));
+  }, props.content), __jsx(_elements_buttonDelete__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    onDelete: onDeleteHandler,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: this
+  }));
 }
 
 /***/ }),
@@ -201,48 +214,67 @@ var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/cardList.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
-function CardList(props, state) {
+
+
+function CardList(props) {
   const {
-    0: cards,
-    1: setCards
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const {
-    0: showTextBox,
-    1: setShowTextBox
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+    0: state,
+    1: setState
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])((state, newState) => _objectSpread({}, state, {}, newState), {
+    cards: [],
+    showTextBox: false
+  });
 
   const buttonAddHandler = () => {
-    setShowTextBox(true);
-    console.log('showTextBox', showTextBox);
+    setState({
+      showTextBox: true
+    });
   };
 
   const addCard = text => {
-    setCards(cards.concat([text]));
-    setShowTextBox(false);
+    setState({
+      cards: state.cards.concat([text])
+    });
+    setState({
+      showTextBox: false
+    });
+  };
+
+  const onDeleteHandler = key => {
+    setState({
+      cards: state.cards.filter((card, index) => index !== key)
+    });
   };
 
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17
+      lineNumber: 21
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18
+      lineNumber: 22
     },
     __self: this
-  }, props.title), cards.map((card, index) => {
+  }, props.title), state.cards.map((card, index) => {
     return __jsx(_card__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      onDelete: onDeleteHandler,
+      cardIndex: index,
       key: index,
       content: card,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 21
+        lineNumber: 25
       },
       __self: this
     });
@@ -250,14 +282,14 @@ function CardList(props, state) {
     onClick: buttonAddHandler,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24
+      lineNumber: 28
     },
     __self: this
-  }), showTextBox && __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), state.showTextBox && __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
     submitText: addCard,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 27
+      lineNumber: 31
     },
     __self: this
   }));
@@ -295,6 +327,44 @@ function ButtonAdd(props) {
     },
     __self: this
   }, "Add"));
+}
+
+/***/ }),
+
+/***/ "./components/elements/buttonDelete.js":
+/*!*********************************************!*\
+  !*** ./components/elements/buttonDelete.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ButtonDelete; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/elements/buttonDelete.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+function ButtonDelete(props) {
+  const onClickHandler = () => {
+    props.onDelete();
+  };
+
+  return __jsx("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: this
+  }, __jsx("button", {
+    onClick: onClickHandler,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, "Delete"));
 }
 
 /***/ }),

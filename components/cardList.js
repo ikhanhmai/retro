@@ -4,19 +4,28 @@ import TextBox from './elements/textBox'
 import {useState} from 'react'
 export default function CardList(props, state) {
   const [cards, setCards] = useState([])
-  const addCard = () => {
-    setCards(cards.concat(["abc"]))
+  const [showTextBox, setShowTextBox] = useState(false)
+  const buttonAddHandler = () => {
+    setShowTextBox(true)
+    console.log('showTextBox',showTextBox)
+  }
+  const addCard = (text) => {
+    setCards(cards.concat([text]))
+    setShowTextBox(false)
   }
   return (
     <div>
       <p>{props.title}</p>
       {
-        cards.map((card) => {
-          return <Card content={card}/>
+        cards.map((card, index) => {
+          return <Card key={index} content={card}/>
         })
       }
-      <ButtonAdd addCard={addCard}/>
-      <TextBox/>
+      <ButtonAdd onClick={buttonAddHandler}/>
+      {
+        showTextBox && 
+        <TextBox submitText={addCard}/>
+      }
     </div>
   )
 }

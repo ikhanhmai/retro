@@ -4,8 +4,8 @@ export default function Body() {
     <div>
       <p>Body</p>
       <CardList title="Went Well"/>
-      <CardList title=""/>
-      <CardList/>
+      <CardList title="To Be Improved"/>
+      <CardList title="Action Items"/>
     </div>
   )
 }

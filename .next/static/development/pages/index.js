@@ -38,13 +38,14 @@ function Body() {
     },
     __self: this
   }), __jsx(_cardList__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    title: "",
+    title: "To Be Improved",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
     },
     __self: this
   }), __jsx(_cardList__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    title: "Action Items",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8
@@ -115,42 +116,54 @@ function CardList(props, state) {
       cards = _useState[0],
       setCards = _useState[1];
 
-  var addCard = function addCard() {
-    setCards(cards.concat(["abc"]));
+  var _useState2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      showTextBox = _useState2[0],
+      setShowTextBox = _useState2[1];
+
+  var buttonAddHandler = function buttonAddHandler() {
+    setShowTextBox(true);
+    console.log('showTextBox', showTextBox);
+  };
+
+  var addCard = function addCard(text) {
+    setCards(cards.concat([text]));
+    setShowTextBox(false);
   };
 
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11
+      lineNumber: 17
     },
     __self: this
   }, __jsx("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 12
+      lineNumber: 18
     },
     __self: this
-  }, props.title), cards.map(function (card) {
+  }, props.title), cards.map(function (card, index) {
     return __jsx(_card__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      key: index,
       content: card,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 15
+        lineNumber: 21
       },
       __self: this
     });
   }), __jsx(_elements_buttonAdd__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    addCard: addCard,
+    onClick: buttonAddHandler,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18
+      lineNumber: 24
     },
     __self: this
-  }), __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), showTextBox && __jsx(_elements_textBox__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    submitText: addCard,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19
+      lineNumber: 27
     },
     __self: this
   }));
@@ -181,7 +194,7 @@ function ButtonAdd(props) {
     },
     __self: this
   }, __jsx("button", {
-    onClick: props.addCard,
+    onClick: props.onClick,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 4
@@ -207,23 +220,40 @@ __webpack_require__.r(__webpack_exports__);
 var _jsxFileName = "/Users/khanhmai/side_projects/retro/components/elements/textBox.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-function TextBox() {
+
+function TextBox(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      text = _useState[0],
+      setText = _useState[1];
+
+  var onChangeHandler = function onChangeHandler(e) {
+    setText(e.target.value);
+  };
+
+  var onAddClicked = function onAddClicked() {
+    props.submitText(text);
+    setText("");
+  };
+
   return __jsx("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 3
+      lineNumber: 12
     },
     __self: this
   }, __jsx("textarea", {
+    value: text,
+    onChange: onChangeHandler,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4
+      lineNumber: 13
     },
     __self: this
   }), __jsx("button", {
+    onClick: onAddClicked,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 6
+      lineNumber: 15
     },
     __self: this
   }, "Add"));
